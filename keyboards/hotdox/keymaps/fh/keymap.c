@@ -5,6 +5,12 @@
 #define MOUSE  2
 #define DEV    3
 
+// One-shot modifiers are nice but a non option here because in RDC environment
+//
+// - If capturing key combos locally, xmonad bindings will be first captured
+//   by the native Windows system, and thus not work.
+// - If capturing key combos remotely, OSM works very unreliably.
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*-- Keymap QWERT: Basic layer
  *
@@ -13,16 +19,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
  * |    Tab    |   Q  |   W  |   E  |   R  |   T  |   =  |           |  `   |   Y  |   U  |   I  |   O  |   P  |     \     |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * | OSM(LCtrl)|   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |     '     |
+ * |     LCtrl |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |     '     |
  * |-----------+------+------+------+------+------|   -  |           |LEADER|------+------+------+------+------+-----------|
- * |OSM(LShift)|   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  |OSM(RShift)|
+ * |    LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  |   RShift  |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
- *     | OSM(  | OSM( |XXXXXX| Left | Right|                                       |  Up  | Down |   [  |   ]  |MO(NAV)|
- *     | LGUI) | LAlt)|XXXXXX|      |      |                                       |      |      |      |      |       |
+ *     | LGUI  | LAlt |XXXXXX| Left | Right|                                       |  Up  | Down |   [  |   ]  |MO(NAV)|
+ *     |       |      |XXXXXX|      |      |                                       |      |      |      |      |       |
  *     `-----------------------------------'                                       `-----------------------------------'
  *                                           ,-------------.       ,-------------.
- *                                           | Home |XXXXXX|       |MO(   | Vol+ |
- *                                           |      |XXXXXX|       |MOUSE)|      |
+ *                                           | Home | RAlt(|       |MO(   | Vol+ |
+ *                                           |      | MsMd)|       |MOUSE)|      |
  *                                    ,------|------|------|       |------+------+------.
  *                                    |      |      |  End |       | Vol- |      |      |
  *                                    |Space |Backsp|------|       |------| Esc  |Enter |
@@ -33,20 +39,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // Left main
            TO(QWERTY),          KC_1,      KC_2,     KC_3,    KC_4,   KC_5,    XXXXXXX,
                KC_TAB,          KC_Q,      KC_W,     KC_E,    KC_R,   KC_T,     KC_EQL,
-        OSM(MOD_LCTL),          KC_A,      KC_S,     KC_D,    KC_F,   KC_G,
-        OSM(MOD_LSFT),          KC_Z,      KC_X,     KC_C,    KC_V,   KC_B,   KC_MINUS,
-        OSM(MOD_LGUI), OSM(MOD_LALT),   XXXXXXX,  KC_LEFT, KC_RGHT,
+              KC_LCTL,          KC_A,      KC_S,     KC_D,    KC_F,   KC_G,
+              KC_LSFT,          KC_Z,      KC_X,     KC_C,    KC_V,   KC_B,   KC_MINUS,
+              KC_LGUI,       KC_LALT,   XXXXXXX,  KC_LEFT, KC_RGHT,
 
         // Left thumb
-                 KC_HOME,  XXXXXXX,
-                            KC_END,
-        KC_SPC,  KC_BSPC,  KC_PGUP,
+                 KC_HOME,  RALT(KC_BTN3),
+                                  KC_END,
+        KC_SPC,  KC_BSPC,        KC_PGUP,
 
         // Right main
           KC_DEL,     KC_6,     KC_7,   KC_8,        KC_9,        KC_0,             MO(DEV),
         KC_GRAVE,     KC_Y,     KC_U,   KC_I,        KC_O,        KC_P,             KC_BSLS,
                       KC_H,     KC_J,   KC_K,        KC_L,     KC_SCLN,             KC_QUOT,
-          KC_LEAD,    KC_N,     KC_M,   KC_COMM,   KC_DOT,     KC_SLSH,       OSM(MOD_RSFT),
+          KC_LEAD,    KC_N,     KC_M,   KC_COMM,   KC_DOT,     KC_SLSH,             KC_RSFT,
                                KC_UP,   KC_DOWN,  KC_LBRC,     KC_RBRC,             MO(NAV),
 
         // Right thumb

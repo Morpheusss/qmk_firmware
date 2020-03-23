@@ -60,7 +60,7 @@
 #define ONESHOT_TAP_TOGGLE 3
 
 #define LEADER_PER_KEY_TIMING
-#define LEADER_TIMEOUT 180
+#define LEADER_TIMEOUT 250
 
 /*
  * Feature disable options
