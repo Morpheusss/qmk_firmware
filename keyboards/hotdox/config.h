@@ -57,6 +57,11 @@
 
 #define USB_MAX_POWER_CONSUMPTION 500
 
+#define ONESHOT_TAP_TOGGLE 3
+
+#define LEADER_PER_KEY_TIMING
+#define LEADER_TIMEOUT 180
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
